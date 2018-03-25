@@ -26,9 +26,8 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     private let locationManager = CLLocationManager()
     private var heatmapLayer: GMUHeatmapTileLayer!
     private var clusterManager: GMUClusterManager!
-    
-    //private var gradientColors = [UIColor.green, UIColor.red]
-    //private var gradientStartPoints = [0.0, 4.0] as? [NSNumber]
+    private var gradientColors = [UIColor.green, UIColor.red]
+    private var gradientStartPoints = [0.2, 1.0] as? [NSNumber]
     
     override func loadView() {
         // Create a GMSCameraPosition that tells the map to display the
@@ -40,6 +39,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
 
         mapView.isMyLocationEnabled = true
         view = mapView
+        mapView.delegate = self
         mapView.settings.myLocationButton = true
 
         locationManager.requestWhenInUseAuthorization()
@@ -59,26 +59,29 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         marker.map = mapView
         marker2.map = mapView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-
-        let iconGenerator = GMUDefaultClusterIconGenerator()
-        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
-        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
-                                           renderer: renderer)
-
-        generateClusterItems()
-
-        clusterManager.cluster()
-        clusterManager.setDelegate(self, mapDelegate: self)
+//        let iconGenerator = GMUDefaultClusterIconGenerator()
+//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+//        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
+//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+//                                           renderer: renderer)
+//
+//        generateClusterItems()
+//
+//        clusterManager.cluster()
+//        clusterManager.setDelegate(self, mapDelegate: self)
 
         heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.map = mapView
+        heatmapLayer.radius = 80
+        heatmapLayer.opacity = 0.8
+        heatmapLayer.gradient = GMUGradient(colors: gradientColors,
+                                            startPoints: gradientStartPoints!,
+                                            colorMapSize: 256)
         addHeatmap()
+        heatmapLayer.map = mapView
     }
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
         print("clusterManager didTap cluster")
