@@ -90,6 +90,11 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         print("clusterManager didTap clusterItem")
         return true
     }
+    
+//    // MARK: - GMSMapViewDelegate
+//    extension MapViewController: GMSMapViewDelegate {
+//        
+//    }
 
     
     // MARK: - GMUMapViewDelegate
@@ -136,6 +141,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
                         let name = "Item \(index!)"
 
                         print("name:\(name), lat :\(lat) , lng:\(lng)")
+
                         let item =
                             POIItem(position: CLLocationCoordinate2DMake(Double(lat)!, Double(lng)!), name: name)
                         clusterManager.add(item)
