@@ -28,7 +28,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     private var clusterManager: GMUClusterManager!
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.1, 1.0] as? [NSNumber]
-    
+    let mainColor = #colorLiteral(red: 0.2126812935, green: 0.5116971731, blue: 0.2621504962, alpha: 1)
     @IBAction func profile(_ sender: UIButton) {
     }
     
@@ -102,12 +102,15 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         mapView.animate(with: userCam)
         
         let marker = GMSMarker()
-        let marker2 = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
-        marker2.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 150.20)
-        marker.map = mapView
-        marker2.map = mapView
 
+        marker.position = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
+
+        marker.title = "NYC"
+        marker.snippet = "lat :\(-33.86) , lng :\(150.20)"
+
+        marker.map = mapView
+
+        
         
     }
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
@@ -135,7 +138,51 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         }
         return false
     }
-    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+       
+    }
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        let view = UIView()
+        
+        view.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+        view.backgroundColor = UIColor.white
+
+        let button = UIButton()
+        button.setTitle("pitch in here", for: .normal)
+        
+        button.backgroundColor = mainColor
+        view.addSubview(button)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+
+        return view
+
+    }
+
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("didTapInfoWindowOf")
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.white
+        let label = UILabel()
+
+        vc.view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.topAnchor.constraint(equalTo: vc.view.topAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        label.leftAnchor.constraint(equalTo: vc.view.leftAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: vc.view.rightAnchor).isActive = true
+        
+        label.text = "Thank you for pitching in! \n \(marker.snippet!)"
+        label.textColor = mainColor
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     //MARK: - Location Manager delegates
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //
@@ -224,6 +271,15 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
                         print("index:\(index), lat :\(lat) , lng:\(lng)")
                         let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat , lng ), intensity: index )
                         list.append(coords)
+                        
+                        //add marker
+                        let marker = GMSMarker()
+                        
+                        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                        
+                        marker.snippet = "index:\(index), lat :\(lat) , lng:\(lng)"
+                        
+                        marker.map = mapView
                     }
                 } else {
                     print("Could not read the JSON.")
