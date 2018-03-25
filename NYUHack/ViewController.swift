@@ -41,46 +41,17 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         mapView.isMyLocationEnabled = true
         view = mapView
         mapView.settings.myLocationButton = true
-        
-        //request authorization
+
         locationManager.requestWhenInUseAuthorization()
-        
-        // Zoom in one zoom level
+
         let zoomCamera = GMSCameraUpdate.zoomIn()
         mapView.animate(with: zoomCamera)
-        
-        // Center the camera on specific place
+
         let userLocattion = CLLocationCoordinate2D(latitude:40.730610, longitude: -73.935242)
-        //let yourCurrentLocation = mapView.myLocation
-        //let mapView = GMSMapView.map(withFrame: yourCurrentLocation, camera: camera)
-        //mapView.delegate = self
+
         let userCam = GMSCameraUpdate.setTarget(userLocattion)
         mapView.animate(with: userCam)
-        
-        // Creates multiple markers in the center of the map.
-//        do {
-//            if let path = Bundle.main.url(forResource: "geolocation", withExtension: "json") {
-//                let data = try Data(contentsOf: path)
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                if let object = json as? [[String: Any]] {
-//                    for item in object {
-//                        let marker = GMSMarker()
-//                        let lat = item["latitude"] as! Double
-//                        print(lat)
-//                        let lng = item["longitude"] as! Double
-//                        print(lng)
-//                        marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-//                        marker.map = mapView
-//                    }
-//                } else {
-//                    print("Could not read the JSON.")
-//                }
-//            }
-//        } catch {
-//                    print(error.localizedDescription)
-//        }
-        
-        // Creates a marker in the center of the map.
+
         let marker = GMSMarker()
         let marker2 = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
@@ -91,38 +62,42 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
-        // Do any additional setup after loading the view, typically from a nib.
-        heatmapLayer = GMUHeatmapTileLayer()
+
         let iconGenerator = GMUDefaultClusterIconGenerator()
         let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
         let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
         clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
                                            renderer: renderer)
-        // Generate and add random items to the cluster manager.
+
         generateClusterItems()
-        
-        // Call cluster() after items have been added to perform the clustering
-        // and rendering on map.
+
         clusterManager.cluster()
-        // Register self to listen to both GMUClusterManagerDelegate and
-        // GMSMapViewDelegate events.
         clusterManager.setDelegate(self, mapDelegate: self)
 
+        heatmapLayer = GMUHeatmapTileLayer()
+        heatmapLayer.map = mapView
+        addHeatmap()
+    }
+    func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
+        print("clusterManager didTap cluster")
+        return true
+    }
+    func clusterManager(_ clusterManager: GMUClusterManager, didTap clusterItem: GMUClusterItem) -> Bool {
+        print("clusterManager didTap clusterItem")
+        return true
     }
     
-    func clusterManager(clusterManager: GMUClusterManager, didTapCluster cluster: GMUCluster) {
-//        let newCamera = GMSCameraPosition.cameraWithTarget(cluster.position,
-//                                                           zoom: mapView.camera.zoom + 1)
-        let newCamera = GMSCameraPosition.camera(withTarget:cluster.position,
-                                                           zoom: mapView.camera.zoom + 1)
-        let update = GMSCameraUpdate.setCamera(newCamera)
-        mapView.moveCamera(update)
-    }
+//    // MARK: - GMSMapViewDelegate
+//    extension MapViewController: GMSMapViewDelegate {
+//        
+//    }
+
     
     // MARK: - GMUMapViewDelegate
-    
-    func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+		
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if let poiItem = marker.userData as? POIItem {
             NSLog("Did tap marker for cluster item \(poiItem.name)")
         } else {
@@ -130,7 +105,6 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         }
         return false
     }
-    
     
     //Location Manager delegates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -151,26 +125,30 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         do {
             if let path = Bundle.main.url(forResource: "geolocation", withExtension: "json") {
                 let data = try Data(contentsOf: path)
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                if let object = json as? [[String: Any]] {
+                let json = try JSONSerialization.jsonObject(with: data, options:.allowFragments)
+                if let object = json as? [[String : Any]] {
                     for item in object {
                         //let marker3 = GMSMarker()
-                        let lat = item["latitude"] as! Double
-                        print(lat)
-                        let lng = item["longitude"] as! Double
-                        print(lng)
+                        let lat = item["latitude"] as! String
+                        //print(lat)
+                        let lng = item["longitude"] as! String
+                        //print(lng)
                         //marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                         //marker.map = mapView
-                        //let index = item["score"]
-                        //let name = "Item \(index)"
-                        let name = "Item"
+                        let index = item["score"]
+                        let name = "Item \(index!)"
+                        //let name = "Item"
+                        print("name:\(name), lat :\(lat) , lng:\(lng)")
+
                         let item =
-                            POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+                            POIItem(position: CLLocationCoordinate2DMake(Double(lat)!, Double(lng)!), name: name)
                         clusterManager.add(item)
                     }
                 } else {
                     print("Could not read the JSON.")
                 }
+            } else {
+                 print("Could not read the JSON.")
             }
         } catch {
             print(error.localizedDescription)
@@ -182,34 +160,29 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
     }
 
-//    func addHeatmap()  {
-//        var list = [GMUWeightedLatLng]()
-//        do {
-//            // Get the data: latitude/longitude positions of police stations.
-//            if let path = Bundle.main.url(forResource: "geolocation", withExtension: "json") {
-//                let data = try Data(contentsOf: path)
-//                let json = try JSONSerialization.jsonObject(with: data, options: [])
-//                if let object = json as? [[String: Any]] {
-//                    for item in object {
-//                        let lat = item["latitude"]
-//                        let lng = item["longitude"]
-//                        let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat as! CLLocationDegrees, lng as! CLLocationDegrees), intensity: 1.0)
-//                        list.append(coords)
-//                    }
-//                } else {
-//                    print("Could not read the JSON.")
-//                }
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//        // Add the latlngs to the heatmap layer.
-//        heatmapLayer.weightedData = list
-//    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func addHeatmap()  {
+        var list = [GMUWeightedLatLng]()
+        do {
+            // Get the data: latitude/longitude positions of police stations.
+            if let path = Bundle.main.url(forResource: "geolocation", withExtension: "json") {
+                let data = try Data(contentsOf: path)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                if let object = json as? [[String: Any]] {
+                    for item in object {
+                        let lat = CLLocationDegrees(item["latitude"] as! String)!
+                        let lng = CLLocationDegrees(item["longitude"] as! String)!
+                        let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat , lng ), intensity: 1.0)
+                        list.append(coords)
+                    }
+                } else {
+                    print("Could not read the JSON.")
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        // Add the latlngs to the heatmap layer.
+        heatmapLayer.weightedData = list
     }
 
 

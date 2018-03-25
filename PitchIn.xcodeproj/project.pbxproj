@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B4751AB8B0BAD9AB928237E /* libPods-NYUHack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1D049FF648C1BB5A9B0EE7 /* libPods-NYUHack.a */; };
+		D503957B206742D900225041 /* geolocation.json in Resources */ = {isa = PBXBuildFile; fileRef = D503957A206742D800225041 /* geolocation.json */; };
 		E8E8324A2066185E00D12CF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E832492066185E00D12CF7 /* AppDelegate.swift */; };
 		E8E8324C2066185E00D12CF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E8324B2066185E00D12CF7 /* ViewController.swift */; };
 		E8E8324F2066185E00D12CF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E8324D2066185E00D12CF7 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		2C1D049FF648C1BB5A9B0EE7 /* libPods-NYUHack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NYUHack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3144960243FA5583FAC24B4 /* Pods-NYUHack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYUHack.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack.release.xcconfig"; sourceTree = "<group>"; };
+		D503957A206742D800225041 /* geolocation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = geolocation.json; sourceTree = SOURCE_ROOT; };
 		E8E832462066185E00D12CF7 /* NYUHack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUHack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E832492066185E00D12CF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8E8324B2066185E00D12CF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		E8E832482066185E00D12CF7 /* NYUHack */ = {
 			isa = PBXGroup;
 			children = (
+				D503957A206742D800225041 /* geolocation.json */,
 				E8E832492066185E00D12CF7 /* AppDelegate.swift */,
 				E8E8324B2066185E00D12CF7 /* ViewController.swift */,
 				E8E8324D2066185E00D12CF7 /* Main.storyboard */,
@@ -259,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D503957B206742D900225041 /* geolocation.json in Resources */,
 				E8E832542066185E00D12CF7 /* LaunchScreen.storyboard in Resources */,
 				E8E832512066185E00D12CF7 /* Assets.xcassets in Resources */,
 				E8E8324F2066185E00D12CF7 /* Main.storyboard in Resources */,
@@ -513,6 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N2M8C53W8L;
 				INFOPLIST_FILE = NYUHack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yichun.NYUHack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -530,6 +535,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N2M8C53W8L;
 				INFOPLIST_FILE = NYUHack/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yichun.NYUHack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
