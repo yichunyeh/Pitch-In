@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLs-3u-8m6">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLs-3u-8m6" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter meal name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wap-35-Ojm">
@@ -39,10 +38,16 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="nLs-3u-8m6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Lis-Xb-now"/>
+                            <constraint firstItem="nLs-3u-8m6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="bNc-Ld-uDA"/>
+                            <constraint firstItem="nLs-3u-8m6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gmT-jo-BOR"/>
+                            <constraint firstItem="nLs-3u-8m6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ofl-e7-sWw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="preMapView" destination="nLs-3u-8m6" id="mKu-cL-W6V"/>
+                        <outlet property="mapView" destination="nLs-3u-8m6" id="a2m-sz-Nsi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

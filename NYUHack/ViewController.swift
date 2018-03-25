@@ -20,9 +20,9 @@ class POIItem: NSObject, GMUClusterItem {
     }
 }
 
-class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDelegate {
-    private var mapView: GMSMapView!
-    @IBOutlet weak var preMapView: UIView!
+class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDelegate ,CLLocationManagerDelegate{
+//    private var mapView: GMSMapView!
+    @IBOutlet weak var mapView: GMSMapView!
     private let locationManager = CLLocationManager()
     private var heatmapLayer: GMUHeatmapTileLayer!
     private var clusterManager: GMUClusterManager!
@@ -30,16 +30,59 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     private var gradientStartPoints = [0.1, 1.0] as? [NSNumber]
     
     override func loadView() {
+        super.loadView()
+//        let camera = GMSCameraPosition.camera(withLatitude: 40.730610, longitude: -73.935242, zoom: 6.0)
+//        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+//
+//        mapView.isMyLocationEnabled = true
+//        view = mapView
+//        mapView.delegate = self
+//        mapView.settings.myLocationButton = true
+//
+//        locationManager.requestWhenInUseAuthorization()
+//
+//        let zoomCamera = GMSCameraUpdate.zoomIn()
+//        mapView.animate(with: zoomCamera)
+//
+//        let userLocattion = CLLocationCoordinate2D(latitude:40.730610, longitude: -73.935242)
+//
+//        let userCam = GMSCameraUpdate.setTarget(userLocattion)
+//        mapView.animate(with: userCam)
+//
+//        let marker = GMSMarker()
+//        let marker2 = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
+//        marker2.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 150.20)
+//        marker.map = mapView
+//        marker2.map = mapView
+
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+//        let iconGenerator = GMUDefaultClusterIconGenerator()
+//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+//        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
+//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+//                                           renderer: renderer)
+//
+//        generateClusterItems()
+//
+//        clusterManager.cluster()
+//        clusterManager.setDelegate(self, mapDelegate: self)
         
-        let camera = GMSCameraPosition.camera(withLatitude: 40.730610, longitude: -73.935242, zoom: 6.0)
-        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        
-        mapView.isMyLocationEnabled = true
-        view = mapView
-        mapView.delegate = self
-        mapView.settings.myLocationButton = true
-        
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        mapView.delegate = self
+
+        heatmapLayer = GMUHeatmapTileLayer()
+        heatmapLayer.radius = 80
+        heatmapLayer.opacity = 0.8
+        heatmapLayer.gradient = GMUGradient(colors: gradientColors,
+                                            startPoints: gradientStartPoints!,
+                                            colorMapSize: 256)
+        addHeatmap()
+        heatmapLayer.map = mapView
         
         let zoomCamera = GMSCameraUpdate.zoomIn()
         mapView.animate(with: zoomCamera)
@@ -56,31 +99,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         marker.map = mapView
         marker2.map = mapView
 
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
         
-        
-//        let iconGenerator = GMUDefaultClusterIconGenerator()
-//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-//        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
-//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
-//                                           renderer: renderer)
-//
-//        generateClusterItems()
-//
-//        clusterManager.cluster()
-//        clusterManager.setDelegate(self, mapDelegate: self)
-
-        heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.radius = 80
-        heatmapLayer.opacity = 0.8
-        heatmapLayer.gradient = GMUGradient(colors: gradientColors,
-                                            startPoints: gradientStartPoints!,
-                                            colorMapSize: 256)
-        addHeatmap()
-        heatmapLayer.map = mapView
     }
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
         print("clusterManager didTap cluster")
@@ -103,19 +122,38 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
         return false
     }
     
-    //Location Manager delegates
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let location = locations.last
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
-        mapView.animate(to: camera)
-        
-        //Finally stop updating location otherwise it will come again and again in this delegate
-        self.locationManager.stopUpdatingLocation()
-        
+    //MARK: - Location Manager delegates
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//
+//        let location = locations.last
+//
+//        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
+//        mapView.animate(to: camera)
+//
+//        //Finally stop updating location otherwise it will come again and again in this delegate
+//        self.locationManager.stopUpdatingLocation()
+//
+//    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else {
+            return
+        }
+
+//        locationManager.startUpdatingLocation()
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 6, bearing: 0, viewingAngle: 0)
+        locationManager.stopUpdatingLocation()
+//        fetchNearbyPlaces(coordinate: location.coordinate)
+    }
     // Randomly generates cluster items within some extent of the camera and
     // adds them to the cluster manager.
     private func generateClusterItems() {
