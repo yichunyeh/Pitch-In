@@ -5,6 +5,9 @@
       location = "group:/Users/yichunyeh/Documents/NYUHack/PitchIn.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:PitchIn.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
