@@ -29,6 +29,15 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     private var gradientColors = [UIColor.green, UIColor.red]
     private var gradientStartPoints = [0.1, 1.0] as? [NSNumber]
     
+    @IBAction func profile(_ sender: UIButton) {
+    }
+    
+    @IBAction func report(_ sender: UIButton) {
+    }
+    
+    @IBAction func community(_ sender: UIButton) {
+    }
+    
     override func loadView() {
         super.loadView()
 //        let camera = GMSCameraPosition.camera(withLatitude: 40.730610, longitude: -73.935242, zoom: 6.0)
