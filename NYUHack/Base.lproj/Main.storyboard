@@ -11,50 +11,60 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="99b-8i-bfq">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NYUHack" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="wq8-Uo-7Zy" customClass="ViewController" customModule="NYUHack" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mvK-Ae-T6l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i2t-Xe-VPV">
-                                <rect key="frame" x="20" y="64" width="60" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3zT-O5-wvs" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILT-Fm-xvm">
+                                <rect key="frame" x="10" y="74" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="button"/>
                                 <connections>
-                                    <action selector="profile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RrW-YN-RJd"/>
-                                    <segue destination="aCr-dL-RUi" kind="push" id="Tqa-Bz-8eL"/>
+                                    <action selector="profile:" destination="wq8-Uo-7Zy" eventType="touchUpInside" id="VTg-dY-yIt"/>
+                                    <segue destination="aCr-dL-RUi" kind="show" id="Aet-7f-jTe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rjz-cN-KQY">
-                                <rect key="frame" x="20" y="204" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2E-pg-fZK">
+                                <rect key="frame" x="10" y="214" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="button"/>
                                 <connections>
-                                    <action selector="community:" destination="BYZ-38-t0r" eventType="touchUpInside" id="orR-Lu-WXf"/>
+                                    <action selector="community:" destination="wq8-Uo-7Zy" eventType="touchUpInside" id="WKE-Qm-Ptx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mre-LV-jLl">
-                                <rect key="frame" x="20" y="134" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lu-P2-Gs3">
+                                <rect key="frame" x="10" y="144" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="button"/>
                                 <connections>
-                                    <action selector="report:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tN7-cM-4iN"/>
+                                    <action selector="report:" destination="wq8-Uo-7Zy" eventType="touchUpInside" id="mac-Ew-6Ig"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3zT-O5-wvs" firstAttribute="bottom" secondItem="eov-nh-f6H" secondAttribute="bottom" id="T5w-AN-BN3"/>
+                            <constraint firstItem="3zT-O5-wvs" firstAttribute="leading" secondItem="eov-nh-f6H" secondAttribute="leading" id="eXz-wi-rlm"/>
+                            <constraint firstItem="3zT-O5-wvs" firstAttribute="trailing" secondItem="eov-nh-f6H" secondAttribute="trailing" id="gPC-91-RJY"/>
+                            <constraint firstItem="3zT-O5-wvs" firstAttribute="top" secondItem="eov-nh-f6H" secondAttribute="top" id="yw3-J8-uKr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eov-nh-f6H"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vD2-Ii-1I7"/>
+                    <navigationItem key="navigationItem" id="mE7-nK-geQ"/>
                     <connections>
-                        <outlet property="community" destination="Rjz-cN-KQY" id="UV1-Wh-SYT"/>
+                        <outlet property="mapView" destination="3zT-O5-wvs" id="Ac2-DX-Vzf"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elh-op-BvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="372" y="32.833583208395808"/>
+            <point key="canvasLocation" x="372" y="39"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="T0N-2C-xDI">
@@ -83,7 +93,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="YTl-gY-HPF"/>
+                        <segue destination="wq8-Uo-7Zy" kind="relationship" relationship="rootViewController" id="cFa-i8-Nil"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ORC-GB-vTf" userLabel="First Responder" sceneMemberID="firstResponder"/>
