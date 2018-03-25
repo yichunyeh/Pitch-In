@@ -21,64 +21,66 @@ class POIItem: NSObject, GMUClusterItem {
 }
 
 class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDelegate {
-    //@IBOutlet weak var mapView: GMSMapView!
     private var mapView: GMSMapView!
+    @IBOutlet weak var preMapView: UIView!
     private let locationManager = CLLocationManager()
     private var heatmapLayer: GMUHeatmapTileLayer!
     private var clusterManager: GMUClusterManager!
-    
-    //private var gradientColors = [UIColor.green, UIColor.red]
-    //private var gradientStartPoints = [0.0, 4.0] as? [NSNumber]
+    private var gradientColors = [UIColor.green, UIColor.red]
+    private var gradientStartPoints = [0.1, 1.0] as? [NSNumber]
     
     override func loadView() {
-        // Create a GMSCameraPosition that tells the map to display the
-        // coordinate -33.86,151.20 at zoom level 6.
-
+        
         let camera = GMSCameraPosition.camera(withLatitude: 40.730610, longitude: -73.935242, zoom: 6.0)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         
-
         mapView.isMyLocationEnabled = true
         view = mapView
+        mapView.delegate = self
         mapView.settings.myLocationButton = true
-
+        
         locationManager.requestWhenInUseAuthorization()
-
+        
         let zoomCamera = GMSCameraUpdate.zoomIn()
         mapView.animate(with: zoomCamera)
-
+        
         let userLocattion = CLLocationCoordinate2D(latitude:40.730610, longitude: -73.935242)
-
+        
         let userCam = GMSCameraUpdate.setTarget(userLocattion)
         mapView.animate(with: userCam)
-
+        
         let marker = GMSMarker()
         let marker2 = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 40.730610, longitude: -73.935242)
         marker2.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 150.20)
         marker.map = mapView
         marker2.map = mapView
+
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-
-        let iconGenerator = GMUDefaultClusterIconGenerator()
-        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
-        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
-                                           renderer: renderer)
-
-        generateClusterItems()
-
-        clusterManager.cluster()
-        clusterManager.setDelegate(self, mapDelegate: self)
+        
+//        let iconGenerator = GMUDefaultClusterIconGenerator()
+//        let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+//        let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
+//        clusterManager = GMUClusterManager(map: mapView, algorithm: algorithm,
+//                                           renderer: renderer)
+//
+//        generateClusterItems()
+//
+//        clusterManager.cluster()
+//        clusterManager.setDelegate(self, mapDelegate: self)
 
         heatmapLayer = GMUHeatmapTileLayer()
-        heatmapLayer.map = mapView
+        heatmapLayer.radius = 80
+        heatmapLayer.opacity = 0.8
+        heatmapLayer.gradient = GMUGradient(colors: gradientColors,
+                                            startPoints: gradientStartPoints!,
+                                            colorMapSize: 256)
         addHeatmap()
+        heatmapLayer.map = mapView
     }
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
         print("clusterManager didTap cluster")
@@ -137,7 +139,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
                         //marker.map = mapView
                         let index = item["score"]
                         let name = "Item \(index!)"
-                        //let name = "Item"
+
                         print("name:\(name), lat :\(lat) , lng:\(lng)")
 
                         let item =
@@ -171,7 +173,9 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
                     for item in object {
                         let lat = CLLocationDegrees(item["latitude"] as! String)!
                         let lng = CLLocationDegrees(item["longitude"] as! String)!
-                        let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat , lng ), intensity: 1.0)
+                        let index = Float(item["score"] as! String)!
+                        print("index:\(index), lat :\(lat) , lng:\(lng)")
+                        let coords = GMUWeightedLatLng(coordinate: CLLocationCoordinate2DMake(lat , lng ), intensity: index )
                         list.append(coords)
                     }
                 } else {
