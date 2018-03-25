@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B4751AB8B0BAD9AB928237E /* libPods-NYUHack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1D049FF648C1BB5A9B0EE7 /* libPods-NYUHack.a */; };
 		E8E8324A2066185E00D12CF7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E832492066185E00D12CF7 /* AppDelegate.swift */; };
 		E8E8324C2066185E00D12CF7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E8324B2066185E00D12CF7 /* ViewController.swift */; };
 		E8E8324F2066185E00D12CF7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8E8324D2066185E00D12CF7 /* Main.storyboard */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C1D049FF648C1BB5A9B0EE7 /* libPods-NYUHack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NYUHack.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3144960243FA5583FAC24B4 /* Pods-NYUHack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYUHack.release.xcconfig"; path = "Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack.release.xcconfig"; sourceTree = "<group>"; };
 		E8E832462066185E00D12CF7 /* NYUHack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUHack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E832492066185E00D12CF7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8E8324B2066185E00D12CF7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		E8E832652066185F00D12CF7 /* NYUHackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NYUHackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8E832692066185F00D12CF7 /* NYUHackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYUHackUITests.swift; sourceTree = "<group>"; };
 		E8E8326B2066185F00D12CF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD3AE4908EC1BF8C85815B9B /* Pods-NYUHack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NYUHack.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B4751AB8B0BAD9AB928237E /* libPods-NYUHack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +79,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2016B9E3B81E6A0DECCA0BC2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FD3AE4908EC1BF8C85815B9B /* Pods-NYUHack.debug.xcconfig */,
+				B3144960243FA5583FAC24B4 /* Pods-NYUHack.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E6D4E2105BFF5845C86985F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C1D049FF648C1BB5A9B0EE7 /* libPods-NYUHack.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E8E8323D2066185E00D12CF7 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +103,8 @@
 				E8E8325D2066185F00D12CF7 /* NYUHackTests */,
 				E8E832682066185F00D12CF7 /* NYUHackUITests */,
 				E8E832472066185E00D12CF7 /* Products */,
+				2016B9E3B81E6A0DECCA0BC2 /* Pods */,
+				E6D4E2105BFF5845C86985F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,9 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E8E8326E2066185F00D12CF7 /* Build configuration list for PBXNativeTarget "NYUHack" */;
 			buildPhases = (
+				18E339880855D8EDBC4AC52F /* [CP] Check Pods Manifest.lock */,
 				E8E832422066185E00D12CF7 /* Sources */,
 				E8E832432066185E00D12CF7 /* Frameworks */,
 				E8E832442066185E00D12CF7 /* Resources */,
+				2788EBCD3628CE1758D3F7B0 /* [CP] Embed Pods Frameworks */,
+				39B8A1898D5871AF239C884F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -253,6 +280,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18E339880855D8EDBC4AC52F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NYUHack-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2788EBCD3628CE1758D3F7B0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39B8A1898D5871AF239C884F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NYUHack/Pods-NYUHack-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E8E832422066185E00D12CF7 /* Sources */ = {
@@ -424,13 +507,16 @@
 		};
 		E8E8326F2066185F00D12CF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD3AE4908EC1BF8C85815B9B /* Pods-NYUHack.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N2M8C53W8L;
 				INFOPLIST_FILE = NYUHack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yichun.NYUHack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = func.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -438,13 +524,16 @@
 		};
 		E8E832702066185F00D12CF7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3144960243FA5583FAC24B4 /* Pods-NYUHack.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N2M8C53W8L;
 				INFOPLIST_FILE = NYUHack/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = yichun.NYUHack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = func.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
