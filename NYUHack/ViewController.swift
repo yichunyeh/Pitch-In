@@ -164,24 +164,7 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
     }
 
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        print("didTapInfoWindowOf")
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.white
-        let label = UILabel()
-
-        vc.view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.topAnchor.constraint(equalTo: vc.view.topAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
-        label.leftAnchor.constraint(equalTo: vc.view.leftAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: vc.view.rightAnchor).isActive = true
-        
-        label.text = "Thank you for pitching in! \n \(marker.snippet!)"
-        label.textColor = mainColor
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        performSegue(withIdentifier: "pitch", sender:nil)
     }
     //MARK: - Location Manager delegates
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
