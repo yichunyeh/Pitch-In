@@ -156,14 +156,14 @@ class ViewController: UIViewController, GMUClusterManagerDelegate,GMSMapViewDele
                     for item in object {
                         //let marker3 = GMSMarker()
                         let lat = item["latitude"] as! Double
-                        //print(lat)
+                        print(lat)
                         let lng = item["longitude"] as! Double
-                        //print(lng)
+                        print(lng)
                         //marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lng)
                         //marker.map = mapView
-                        let index = item["score"]
-                        let name = "Item \(index)"
-                        //let name = "Item"
+                        //let index = item["score"]
+                        //let name = "Item \(index)"
+                        let name = "Item"
                         let item =
                             POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
                         clusterManager.add(item)
